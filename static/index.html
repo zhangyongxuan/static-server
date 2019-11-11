@@ -1,0 +1,127 @@
+<!--
+ * @Description: 
+ * @Date: 2019-11-04 15:57:26
+ * @author: zhangyongxuan <yongxuan.zhang@hand-china.com>
+ * @version: 1.0.0
+ * @copyright: Copyright (c) 2019, Hand
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link href="./css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/swiper.min.css" />
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js//swiper.min.js"></script>
+    <style>
+      .my-bullet {
+        background: white;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        margin-left: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .my-bullet-active {
+        background: skyblue;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        margin-left: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper-container" style="width: 912px;height: 500px;">
+      <div class="swiper-wrapper">
+        
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <div class="box"></div>
+    <script>
+      $.fn.isOnScreen = function(){
+     
+     var win = $(window);
+      
+     var viewport = {
+         top : win.scrollTop(),
+         left : win.scrollLeft()
+     };
+     viewport.right = viewport.left + win.width();
+     viewport.bottom = viewport.top + win.height();
+      
+     var bounds = this.offset();
+     bounds.right = bounds.left + this.outerWidth();
+     bounds.bottom = bounds.top + this.outerHeight();
+      
+     return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+      
+ };
+
+      //swiper-slide swiper-slide-active
+      $.ajax({
+        url: "/home/getImages",
+        type: "GET",
+        dataType: "json",
+        success: res => {
+          if (res.code === 200) {
+            if (res.data && res.data.length !== 0) {
+              res.data.forEach(item => {
+                $(".box").append(`<img src="./img/loading.jpg" img-data=${item} alt="" srcset="" />`);
+                $(".swiper-wrapper").append(` 
+                <div class="swiper-slide">
+                  <img class="slide-img" src="./img/loading.jpg" img-data=${item} alt="" srcset="" />
+                </div>
+                `);
+              });
+              var mySwiper = new Swiper(".swiper-container", {
+                autoplay: {
+                  disableOnInteraction: false,
+                  delay: 1500
+                },
+                loop: true,
+                pagination: {
+                  el: ".swiper-pagination",
+                  //   type: "progressbar"
+                  clickable: true,
+                  bulletClass: "my-bullet",
+                  bulletActiveClass: "my-bullet-active"
+                }
+              });
+            } else {
+              $(".box").append(`empty data`);
+            }
+          } else {
+            alert(`server error`);
+          }
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+    </script>
+    <script>
+      $(function(){
+        $(document).scroll(function() {
+          Array.from($('img')).forEach(item=>{
+            if($(item).isOnScreen()){
+              const src = $(item).attr('img-data');
+              $(item).attr('src',src);
+            }
+          })
+        })
+      })
+    </script>
+  </body>
+</html>
