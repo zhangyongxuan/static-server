@@ -8,6 +8,7 @@
 const Koa = require('koa');  // 引入koa框架
 const cp = require('child_process'); // 用来创建子进程
 const path = require('path');
+const cors = require('koa2-cors');
 const KoaStatic = require('koa-static');
 const color = require('./font-color.config');
 const m1 = require('./middleware/m1');
@@ -30,6 +31,7 @@ app.use( async (ctx,next)=>{
     await next();
     console.log('m2 end');
 } )
+app.use(cors());
 app.use(home.routes()).use(home.allowedMethods());
 app.listen(port);
 

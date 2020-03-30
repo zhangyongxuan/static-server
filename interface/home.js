@@ -14,7 +14,7 @@ const filePathProxy = `http://${host}:${port}/img/`
 Router.get("/home/getImages", async ctx => {
  
 
-const files = fs.readdirSync(path.join(__dirname,'/img'));
+const files = fs.readdirSync(path.resolve(__dirname,'../static/img'));
 const data = files.map(item=>{
   return `${filePathProxy}${item}`
 })
