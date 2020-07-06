@@ -4,11 +4,21 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
     {
         "type": "node",
         "request": "launch",
         "name": "server8087",
         "program": "${workspaceFolder}/server8087.js",
+        "skipFiles": [
+            "<node_internals>/**"
+        ]
+    },
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "server8088",
+        "program": "${workspaceFolder}/server8088.js",
         "skipFiles": [
             "<node_internals>/**"
         ]
