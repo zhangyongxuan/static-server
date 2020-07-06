@@ -8,9 +8,12 @@
         margin: 0;
         padding: 0;
       }
-      #canvas {
+      body {
+        /* background: black; */
         background: url("./img/bgimg.png");
         background-size: 100% 100%;
+      }
+      #canvas {
         height: 100vh;
         width: 100vw;
       }
@@ -129,7 +132,6 @@
         drawDots();
       };
       function drawDots() {
-		  
         ctx.clearRect(0, 0, ctx.w, ctx.h);
         for (var i = 0; i < dots.length; i++) {
           const { x, y, r, frameNum, frameCount, sx, sy } = dots[i];
@@ -167,18 +169,21 @@
           }
         }
       }
+
       var arr = ["梦梦", "我爱你", "从今往后", "我带你"];
       var num = 0;
-      var timer = setInterval(function () {
-        if (num < arr.length) {
-          str = arr[num];
-          num++;
-        } else {
-          str = null;
-          clearInterval(timer);
-        }
-        btn.click();
-      }, 1500);
+      window.onload = function () {
+        var timer = setInterval(function () {
+          if (num < arr.length) {
+            str = arr[num];
+            num++;
+          } else {
+            str = null;
+            clearInterval(timer);
+          }
+          btn.click();
+        }, 1500);
+      };
     </script>
   </body>
 </html>
