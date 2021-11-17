@@ -108,9 +108,9 @@
         ctx.fillStyle = "white";
         var e = event || e;
 
-        var txt = str || txtBo.value || "浪迹天涯!";
+        var txt = str || txtBo.value;
         //  || 'welcome to canvas';
-        if (txt === "浪迹天涯!") {
+        if (txt === "GO!") {
           ctx.fillStyle = "pink";
         }
         if (rafId) cancelAnimationFrame(rafId);
@@ -170,7 +170,7 @@
         }
       }
 
-      var arr = ["梦梦", "我爱你", "从今往后", "我带你"];
+      var arr = ["3", "2", "1", "GO!"];
       var num = 0;
       window.onload = function () {
         var timer = setInterval(function () {
